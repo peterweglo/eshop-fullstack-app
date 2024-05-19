@@ -5,7 +5,7 @@ import Header from './components/views/Header/Header';
 import Footer from './components/views/Footer/Footer';
 import { Container } from 'react-bootstrap';
 import ProductPage from './components/pages/ProductPage/ProductPage';
-
+import Cart from './components/pages/Cart/Cart';
 const App = () => {
   return (
     <Container>
@@ -13,8 +13,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductPage />} />
-        {/* <Route path='/ad/add' element={<AddAd />} />
-        <Route path='/ad/edit/:id' element={<EditAd />} />
+        <Route path="/cart" element={<Cart />} />
+        {/* <Route path='/ad/edit/:id' element={<EditAd />} />
         <Route path='/login' element={<Login />} />
         <Route path='/logout' element={<Logout />} />
         <Route path='/register' element={<Register />} /> */}

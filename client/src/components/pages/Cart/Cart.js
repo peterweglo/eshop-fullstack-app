@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
   Row,
@@ -7,45 +7,70 @@ import {
   Card,
   Button,
   ListGroup,
-  ListGroupItem,
+  Image,
 } from 'react-bootstrap';
+import {
+  getAll,
+  getTotalQuantity,
+  removeProduct,
+  updateQuantity,
+} from '../../../redux/cartRedux';
 
 const Cart = () => {
-  const cart = useSelector((state) => state.cart); // Zakładając, że masz reducer 'cart' w swoim Redux store
+  const dispatch = useDispatch();
+  const cartProducts = useSelector(getAll);
+  const totalQuantity = useSelector(getTotalQuantity);
 
-  const getTotalPrice = () => {
-    return cart.items
-      .reduce((total, item) => total + item.price * item.quantity, 0)
-      .toFixed(2);
+  const handleRemove = (id) => {
+    dispatch(removeProduct(id));
   };
+
+  const handleChangeQuantity = (id, quantity) => {
+    dispatch(updateQuantity(id, quantity));
+  };
+
+  // Delivery cost is fixed at $5
+  const deliveryCost = 5;
+  const totalCost =
+    cartProducts.reduce(
+      (total, product) => total + product.price * product.quantity,
+      0,
+    ) + deliveryCost;
 
   return (
     <Container>
+      <h2>Cart ({totalQuantity} products)</h2>
       <Row>
         <Col md={8}>
-          <h2>Koszyk ({cart.items.length})</h2>
-          {cart.items.map((item, index) => (
-            <Card key={index} className="mb-3">
-              <Card.Body>
-                <Card.Title>{item.name}</Card.Title>
-                <Card.Text>Kolor: {item.color}</Card.Text>
-                <Card.Text>Rozmiar: {item.size}</Card.Text>
-                <ListGroup className="list-group-flush">
-                  <ListGroupItem>
-                    Cena za sztukę: {item.price.toFixed(2)} zł
-                  </ListGroupItem>
-                  <ListGroupItem>Ilość: {item.quantity}</ListGroupItem>
-                  <ListGroupItem>
-                    Suma: {(item.price * item.quantity).toFixed(2)} zł
-                  </ListGroupItem>
-                </ListGroup>
+          {cartProducts.map((product) => (
+            <Card
+              key={product.id}
+              className="mb-3 d-flex flex-row align-items-stretch"
+            >
+              <Image
+                src={'../../../images/' + product.image}
+                style={{ width: '50%', objectFit: 'cover' }}
+              />
+              <Card.Body className="flex-grow-1">
+                <Card.Title>{product.name}</Card.Title>
+                <Card.Text>Price: {product.price.toFixed(2)} $</Card.Text>
+                <Card.Text>
+                  Quantity:
+                  <input
+                    type="number"
+                    value={product.quantity}
+                    min="1"
+                    onChange={(e) =>
+                      handleChangeQuantity(product.id, parseInt(e.target.value))
+                    }
+                    style={{ marginLeft: '10px', width: '60px' }}
+                  />
+                </Card.Text>
                 <Button
-                  variant="outline-danger"
-                  onClick={() => {
-                    /* funkcja usuwająca produkt z koszyka */
-                  }}
+                  variant="danger"
+                  onClick={() => handleRemove(product.id)}
                 >
-                  Usuń
+                  Remove
                 </Button>
               </Card.Body>
             </Card>
@@ -53,19 +78,24 @@ const Cart = () => {
         </Col>
         <Col md={4}>
           <Card>
-            <Card.Header>Podsumowanie</Card.Header>
-            <ListGroup className="list-group-flush">
-              <ListGroupItem>
-                Wartość produktów: {getTotalPrice()} zł
-              </ListGroupItem>
-              <ListGroupItem>Dostawa: Wybierz dostawę i płatność</ListGroupItem>
-              <ListGroupItem>
-                <strong>Do zapłaty (z VAT): {getTotalPrice()} zł</strong>
-              </ListGroupItem>
+            <Card.Header>Total Cost</Card.Header>
+            <ListGroup variant="flush">
+              <ListGroup.Item>
+                Products: {(totalCost - deliveryCost).toFixed(2)} $
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Delivery: {deliveryCost.toFixed(2)} $
+              </ListGroup.Item>
+              <ListGroup.Item>Total: {totalCost.toFixed(2)} $</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-              <Button variant="success" block>
-                Przejdź do kasy
+              <Button
+                variant="success"
+                onClick={() => {
+                  /* Navigate to checkout page */
+                }}
+              >
+                Checkout
               </Button>
             </Card.Body>
           </Card>

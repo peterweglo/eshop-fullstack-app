@@ -109,7 +109,9 @@ const ProductPage = () => {
               <Button variant="secondary" onClick={handleClose}>
                 Continue shopping
               </Button>
-              <Button variant="primary">Go to cart</Button>
+              <Button variant="primary" as={Link} to={`/cart`}>
+                Go to cart
+              </Button>
             </Modal.Footer>
           </Modal>
         </div>
