@@ -1,5 +1,30 @@
+import SingleProduct from '../SingleProduct/SingleProduct';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { Row, Col } from 'react-bootstrap';
+import {
+  getAllProducts,
+  loadProductsRequest,
+} from '../../../redux/productsRedux';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
 const List = () => {
-  return <h1> List of shoes</h1>;
+  const dispatch = useDispatch();
+  const products = useSelector(getAllProducts);
+
+  useEffect(() => {
+    dispatch(loadProductsRequest());
+  }, [dispatch]);
+
+  return (
+    <Row>
+      {products.map((product) => (
+        <Col key={product.id} xs="12" md="6" lg="4">
+          <SingleProduct {...product} />
+        </Col>
+      ))}
+    </Row>
+  );
 };
 
 export default List;
