@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { loadProductsRequest } from '../../../redux/productsRedux';
 import { Link } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
+import { addProduct } from '../../../redux/cartRedux';
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -28,6 +29,11 @@ const ProductPage = () => {
 
     loadData();
   }, [dispatch]);
+
+  const handleAddToCart = () => {
+    dispatch(addProduct({ ...productData, quantity: 1 }));
+    setShow(true);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -66,7 +72,11 @@ const ProductPage = () => {
               <strong>Product updated :</strong> {productData.updatedAt}
             </Card.Text>
           </Card.Body>
-          <Button variant="outline-info" className="m-1" onClick={handleShow}>
+          <Button
+            variant="outline-info"
+            className="m-1"
+            onClick={handleAddToCart}
+          >
             Add to cart
           </Button>
         </Card>
