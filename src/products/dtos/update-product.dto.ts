@@ -15,4 +15,8 @@ export class UpdateProductDTO {
   @IsNotEmpty()
   @Transform(({ value }) => (Array.isArray(value) ? value.join(', ') : ''))
   description: string;
+
+  @IsString()
+  @IsNotEmpty()
+  image: string;
 }

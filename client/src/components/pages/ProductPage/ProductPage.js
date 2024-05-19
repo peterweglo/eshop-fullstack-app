@@ -46,9 +46,7 @@ const ProductPage = () => {
           <Card.Img
             className="width: 18rem;"
             variant="top"
-            src={
-              'https://cdn.pixabay.com/photo/2013/07/12/18/20/shoes-153310_1280.png'
-            }
+            src={'../../../images/' + productData.image}
           />
           <Card.Body>
             <Card.Title>{productData.title}</Card.Title>
@@ -87,7 +85,7 @@ const ProductPage = () => {
               <Card>
                 <Card.Img
                   variant="top"
-                  src="https://cdn.pixabay.com/photo/2013/07/12/18/20/shoes-153310_1280.png"
+                  src={'../../../images/' + productData.image}
                 />
                 <Card.Body>
                   <Card.Title>{productData.name}</Card.Title>
