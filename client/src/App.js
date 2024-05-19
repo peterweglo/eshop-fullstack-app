@@ -4,6 +4,7 @@ import NotFound from './components/pages/NotFound/NotFound';
 import Header from './components/views/Header/Header';
 import Footer from './components/views/Footer/Footer';
 import { Container } from 'react-bootstrap';
+import ProductPage from './components/pages/ProductPage/ProductPage';
 
 const App = () => {
   return (
@@ -11,7 +12,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/ad/:id" element={<ProductPage />} /> */}
+        <Route path="/ad/:id" element={<ProductPage />} />
         {/* <Route path='/ad/add' element={<AddAd />} />
         <Route path='/ad/edit/:id' element={<EditAd />} />
         <Route path='/login' element={<Login />} />
