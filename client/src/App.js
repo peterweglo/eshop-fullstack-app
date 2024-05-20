@@ -6,6 +6,7 @@ import Footer from './components/views/Footer/Footer';
 import { Container } from 'react-bootstrap';
 import ProductPage from './components/pages/ProductPage/ProductPage';
 import Cart from './components/pages/Cart/Cart';
+import OrderPage from './components/pages/OrderPage/OrderPage';
 const App = () => {
   return (
     <Container>
@@ -14,10 +15,10 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/cart" element={<Cart />} />
-        {/* <Route path='/ad/edit/:id' element={<EditAd />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/logout' element={<Logout />} />
-        <Route path='/register' element={<Register />} /> */}
+        <Route path="/order" element={<OrderPage />} />
+        {/* <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/register" element={<Register />} /> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

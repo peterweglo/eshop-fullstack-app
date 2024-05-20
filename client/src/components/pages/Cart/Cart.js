@@ -15,9 +15,11 @@ import {
   removeProduct,
   updateQuantity,
 } from '../../../redux/cartRedux';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartProducts = useSelector(getAll);
   const totalQuantity = useSelector(getTotalQuantity);
 
@@ -89,12 +91,7 @@ const Cart = () => {
               <ListGroup.Item>Total: {totalCost.toFixed(2)} $</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-              <Button
-                variant="success"
-                onClick={() => {
-                  /* Navigate to checkout page */
-                }}
-              >
+              <Button variant="success" onClick={() => navigate('/order')}>
                 Checkout
               </Button>
             </Card.Body>
