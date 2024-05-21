@@ -24,7 +24,6 @@ export class OrdersService {
       },
     });
   }
-
   public deleteById(id: string): Promise<Order> {
     return this.prismaService.order.delete({
       where: { id },
