@@ -41,14 +41,14 @@ export class ProductsService {
   }
   public getAllExtended(): Promise<Product[]> {
     return this.prismaService.product.findMany({
-      include: { orders: true },
+      include: { orderItems: true },
     });
   }
 
   public getExtendedById(id: Product['id']): Promise<Product | null> {
     return this.prismaService.product.findUnique({
       where: { id },
-      include: { orders: true },
+      include: { orderItems: true },
     });
   }
 }

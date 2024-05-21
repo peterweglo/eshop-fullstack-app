@@ -1,9 +1,13 @@
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { API_URL } from '../../../config';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearCart } from '../../../redux/cartRedux';
 
 const OrderForm = () => {
+  const cartProducts = useSelector((state) => state.cart.products);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -17,6 +21,7 @@ const OrderForm = () => {
 
   const [status, setStatus] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -24,11 +29,105 @@ const OrderForm = () => {
     formState: { errors },
   } = useForm();
 
-  const handleSubmit = () => {};
+  useEffect(() => {
+    if (status === 'success') {
+      dispatch(clearCart());
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    }
+  }, [status, dispatch, navigate]);
+
+  const handleSubmit = () => {
+    const orderData = {
+      firstName,
+      lastName,
+      email,
+      country,
+      street1,
+      street2,
+      city,
+      zip,
+      phone,
+      comments,
+      products: cartProducts.map((product) => ({
+        productId: product.id,
+        name: product.name,
+        quantity: product.quantity,
+      })),
+    };
+    console.log('OrderData', orderData);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData),
+    };
+
+    const url = `${API_URL}/orders`;
+
+    setStatus('loading');
+    fetch(url, options)
+      .then((res) => {
+        if (res.ok) {
+          setStatus('success');
+          // navigate('/');
+        } else {
+          switch (res.status) {
+            case 400:
+              setStatus('clientError');
+              break;
+            case 401:
+              setStatus('loginError');
+              break;
+            default:
+              setStatus('serverError');
+          }
+        }
+      })
+      .catch((err) => {
+        console.error('Error fetching data:', err);
+        setStatus('serverError');
+      });
+  };
 
   return (
     <div style={{ width: '60%' }} className="m-auto">
       <Form onSubmit={validate(handleSubmit)}>
+        {status === 'success' && (
+          <Alert variant="success">
+            <Alert.Heading>Success!</Alert.Heading>
+            <p>Order Successfull!</p>
+          </Alert>
+        )}
+
+        {status === 'serverError' && (
+          <Alert variant="danger">
+            <Alert.Heading>Something went wrong!</Alert.Heading>
+            <p>Unexpected error please try again</p>
+          </Alert>
+        )}
+
+        {status === 'clientError' && (
+          <Alert variant="danger">
+            <Alert.Heading>Not enough data</Alert.Heading>
+            <p>You have to fill all the fields</p>
+          </Alert>
+        )}
+
+        {status === 'loginError' && (
+          <Alert variant="warning">
+            <Alert.Heading>You must be logged</Alert.Heading>
+            <p>You have to login first</p>
+          </Alert>
+        )}
+
+        {status === 'loading' && (
+          <Spinner animation="border" role="status"></Spinner>
+        )}
+
         <Form.Group className="mb-4">
           <Form.Label>First name</Form.Label>
           <Form.Control

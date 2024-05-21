@@ -5,13 +5,12 @@ import {
   Delete,
   Post,
   Body,
-  Put,
   NotFoundException,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { ParseUUIDPipe } from '@nestjs/common';
 import { CreateOrderDTO } from './dtos/create-order-dto';
-import { UpdateOrderDTO } from './dtos/update-order-dto';
+import { BadRequestException } from '@nestjs/common';
 
 @Controller('orders')
 export class OrdersController {
@@ -39,18 +38,8 @@ export class OrdersController {
 
   @Post('/')
   create(@Body() orderData: CreateOrderDTO) {
-    return this.ordersService.create(orderData);
-  }
-
-  @Put('/:id')
-  async update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() orderData: UpdateOrderDTO,
-  ) {
-    if (!(await this.ordersService.getById(id)))
-      throw new NotFoundException('Order not found');
-
-    await this.ordersService.updateById(id, orderData);
-    return { success: true };
+    return this.ordersService.create(orderData).catch((err) => {
+      throw new BadRequestException(err.message);
+    });
   }
 }

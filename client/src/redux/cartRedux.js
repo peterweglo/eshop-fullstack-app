@@ -14,6 +14,7 @@ const createActionName = (name) => `app/${reducerName}/${name}`;
 const ADD_PRODUCT = createActionName('ADD_PRODUCT');
 const UPDATE_QUANTITY = createActionName('UPDATE_QUANTITY');
 const REMOVE_PRODUCT = createActionName('REMOVE_PRODUCT');
+const CLEAR_CART = createActionName('CLEAR_CART');
 
 /* action creators */
 export const addProduct = (payload) => ({ payload, type: ADD_PRODUCT });
@@ -22,6 +23,7 @@ export const updateQuantity = (id, quantity) => ({
   payload: { id, quantity },
 });
 export const removeProduct = (id) => ({ type: REMOVE_PRODUCT, payload: id });
+export const clearCart = () => ({ type: CLEAR_CART });
 
 /* initial state */
 const initialState = {
@@ -65,6 +67,10 @@ export default function reducer(state = initialState, action = {}) {
       newProducts = state.products.filter(
         (product) => product.id !== action.payload,
       );
+      break;
+    }
+    case CLEAR_CART: {
+      newProducts = [];
       break;
     }
     default:
