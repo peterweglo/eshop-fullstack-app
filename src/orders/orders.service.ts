@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/services/prisma.service';
-import { Order, Prisma } from '@prisma/client';
+import { Order } from '@prisma/client';
 import { BadRequestException } from '@nestjs/common';
 import { CreateOrderDTO } from './dtos/create-order-dto';
 
@@ -24,6 +24,7 @@ export class OrdersService {
       },
     });
   }
+
   public deleteById(id: string): Promise<Order> {
     return this.prismaService.order.delete({
       where: { id },

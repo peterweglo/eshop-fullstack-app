@@ -30,6 +30,11 @@ const Cart = () => {
   const handleChangeQuantity = (id, quantity) => {
     dispatch(updateQuantity(id, quantity));
   };
+  const handleCheckout = () => {
+    if (cartProducts.length === 0) {
+      alert('Your cart is empty. Please add products to proceed to checkout.');
+    } else navigate('/order');
+  };
 
   // Delivery cost is fixed at $5
   const deliveryCost = 5;
@@ -91,7 +96,7 @@ const Cart = () => {
               <ListGroup.Item>Total: {totalCost.toFixed(2)} $</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-              <Button variant="success" onClick={() => navigate('/order')}>
+              <Button variant="success" onClick={handleCheckout}>
                 Checkout
               </Button>
             </Card.Body>
