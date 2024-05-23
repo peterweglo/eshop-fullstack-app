@@ -73,7 +73,7 @@ const ProductPage = () => {
             </Card.Text>
           </Card.Body>
           <Button
-            variant="outline-info"
+            variant="outline-success"
             className="m-1"
             onClick={handleAddToCart}
           >

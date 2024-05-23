@@ -1,10 +1,24 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
-import { IMGS_URL } from '../../../config';
+import { addProduct } from '../../../redux/cartRedux';
+import { useDispatch } from 'react-redux';
 
 const SingleProduct = (props) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    dispatch(
+      addProduct({
+        id: props.id,
+        name: props.name,
+        price: props.price,
+        image: props.image,
+        quantity: 1,
+      }),
+    );
+  };
 
   return (
     <Card className="mb-3">
@@ -22,6 +36,9 @@ const SingleProduct = (props) => {
           onClick={() => navigate(`/product/${props.id}`)}
         >
           Read more
+        </Button>
+        <Button variant="success" onClick={handleAddToCart} className="mx-3">
+          Add to cart
         </Button>
       </Card.Body>
     </Card>
