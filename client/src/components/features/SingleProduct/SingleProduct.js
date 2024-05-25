@@ -32,7 +32,7 @@ const SingleProduct = (props) => {
         <Card.Text>{props.description}</Card.Text>
         <Card.Text>Price: {props.price} $</Card.Text>
         <Button
-          variant="primary"
+          variant="secondary"
           onClick={() => navigate(`/product/${props.id}`)}
         >
           Read more

@@ -16,6 +16,7 @@ import {
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { ReactComponent as Logo } from '../../../images/logo2.svg';
 
 const NavBar = () => {
   const totalQuantity = useSelector(getTotalQuantity);
@@ -65,13 +66,16 @@ const NavBar = () => {
 
   return (
     <Navbar
-      bg="primary"
+      bg="secondary"
       variant="dark"
       expand="lg"
       className="mt-4 mb-4 rounded"
     >
       <Container>
-        <Navbar.Brand href="/">ShoeShop.app</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <Logo style={{ height: '150px' }} />
+          <span className={styles.logo}>ShoeShop</span>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
@@ -104,7 +108,7 @@ const NavBar = () => {
                       </div>
                       <div className={styles.quantityControls}>
                         <Button
-                          variant="primary"
+                          variant="secondary"
                           onClick={() =>
                             handleQuantityChange(
                               product.id,
@@ -123,7 +127,7 @@ const NavBar = () => {
                           }
                         />
                         <Button
-                          variant="primary"
+                          variant="secondary"
                           onClick={() =>
                             handleQuantityChange(
                               product.id,

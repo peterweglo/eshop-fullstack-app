@@ -72,11 +72,7 @@ const ProductPage = () => {
               <strong>Product updated :</strong> {productData.updatedAt}
             </Card.Text>
           </Card.Body>
-          <Button
-            variant="outline-success"
-            className="m-1"
-            onClick={handleAddToCart}
-          >
+          <Button variant="success" className="m-1" onClick={handleAddToCart}>
             Add to cart
           </Button>
         </Card>
@@ -109,7 +105,7 @@ const ProductPage = () => {
               <Button variant="secondary" onClick={handleClose}>
                 Continue shopping
               </Button>
-              <Button variant="primary" as={Link} to={`/cart`}>
+              <Button variant="success" as={Link} to={`/cart`}>
                 Go to cart
               </Button>
             </Modal.Footer>
