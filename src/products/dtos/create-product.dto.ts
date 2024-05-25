@@ -16,5 +16,9 @@ export class CreateProductDTO {
 
   @IsNotEmpty()
   @IsString()
+  longDescription: string;
+
+  @IsNotEmpty()
+  @IsString()
   image: string;
 }

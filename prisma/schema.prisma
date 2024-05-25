@@ -18,6 +18,7 @@ model Product {
   name        String
   price       Int
   description String
+  longDescription String   @db.LongText
   image       String   
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
