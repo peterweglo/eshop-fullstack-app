@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../../../redux/productsRedux';
 import { Navigate } from 'react-router-dom';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { loadProductsRequest } from '../../../redux/productsRedux';
@@ -48,34 +48,47 @@ const ProductPage = () => {
   return (
     <main className="d-flex justify-content-center">
       <div className="pe-5 me-5">
-        <Card className="mb-4 border border-0">
-          <Card.Img
-            className="width: 18rem;"
-            variant="top"
-            src={'../../../images/' + productData.image}
-          />
-          <Card.Body>
-            <Card.Title>{productData.title}</Card.Title>
-            <Card.Text>
-              <strong>Name:</strong> {productData.name}
-            </Card.Text>
-            <Card.Text>
-              <strong>description:</strong> {productData.description}
-            </Card.Text>
-            <Card.Text>
-              <strong>Price:</strong> {productData.price} $
-            </Card.Text>
-            <Card.Text>
-              <strong>Product added:</strong> {productData.createdAt}
-            </Card.Text>
-            <Card.Text>
-              <strong>Product updated :</strong> {productData.updatedAt}
-            </Card.Text>
-          </Card.Body>
-          <Button variant="success" className="m-1" onClick={handleAddToCart}>
-            Add to cart
-          </Button>
-        </Card>
+        <Row className="justify-content-center">
+          <Col md={7}>
+            <Card className="mb-4 border border-0">
+              <Card.Img
+                className="width: 18rem;"
+                variant="top"
+                src={'../../../images/' + productData.image}
+              />
+              <Card.Body>
+                <Card.Title>{productData.title}</Card.Title>
+                <Card.Text>
+                  <strong>Name:</strong> {productData.name}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Description:</strong> {productData.description}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Long description:</strong>{' '}
+                  {productData.longDescription}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Price:</strong> {productData.price} $
+                </Card.Text>
+                <Card.Text>
+                  <strong>Product added:</strong> {productData.createdAt}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Product updated :</strong> {productData.updatedAt}
+                </Card.Text>
+              </Card.Body>
+              <Button
+                variant="success"
+                className="m-1"
+                onClick={handleAddToCart}
+              >
+                Add to cart
+              </Button>
+            </Card>
+          </Col>
+        </Row>
+
         <div>
           <Modal
             show={show}
