@@ -9,6 +9,7 @@ import { loadProductsRequest } from '../../../redux/productsRedux';
 import { Link } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import { addProduct } from '../../../redux/cartRedux';
+import { Spinner } from 'react-bootstrap';
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -36,7 +37,7 @@ const ProductPage = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner animation="border" role="status"></Spinner>;
   }
 
   if (!productData) {
