@@ -47,83 +47,76 @@ const ProductPage = () => {
 
   return (
     <main className="d-flex justify-content-center">
-      <div className="pe-5 me-5">
-        <Row className="justify-content-center">
-          <Col md={7}>
-            <Card className="mb-4 border border-0">
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <Card className="mb-4 border border-0">
+            <Card.Img
+              className="width: 18rem;"
+              variant="top"
+              src={'../../../images/' + productData.image}
+            />
+            <Card.Body>
+              <Card.Title>{productData.title}</Card.Title>
+              <Card.Text>
+                <strong>Name:</strong> {productData.name}
+              </Card.Text>
+              <Card.Text>
+                <strong>Description:</strong> {productData.description}
+              </Card.Text>
+              <Card.Text>
+                <strong>Long description:</strong> {productData.longDescription}
+              </Card.Text>
+              <Card.Text>
+                <strong>Price:</strong> {productData.price} $
+              </Card.Text>
+              <Card.Text>
+                <strong>Product added:</strong> {productData.createdAt}
+              </Card.Text>
+              <Card.Text>
+                <strong>Product updated :</strong> {productData.updatedAt}
+              </Card.Text>
+            </Card.Body>
+            <Button variant="success" className="m-1" onClick={handleAddToCart}>
+              Add to cart
+            </Button>
+          </Card>
+        </Col>
+      </Row>
+
+      <div>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>The product has been added to the cart</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <Card>
               <Card.Img
-                className="width: 18rem;"
                 variant="top"
                 src={'../../../images/' + productData.image}
               />
               <Card.Body>
-                <Card.Title>{productData.title}</Card.Title>
-                <Card.Text>
-                  <strong>Name:</strong> {productData.name}
-                </Card.Text>
-                <Card.Text>
-                  <strong>Description:</strong> {productData.description}
-                </Card.Text>
-                <Card.Text>
-                  <strong>Long description:</strong>{' '}
-                  {productData.longDescription}
-                </Card.Text>
-                <Card.Text>
-                  <strong>Price:</strong> {productData.price} $
-                </Card.Text>
-                <Card.Text>
-                  <strong>Product added:</strong> {productData.createdAt}
-                </Card.Text>
-                <Card.Text>
-                  <strong>Product updated :</strong> {productData.updatedAt}
-                </Card.Text>
+                <Card.Title>{productData.name}</Card.Title>
+                <Card.Text>{productData.description}</Card.Text>
+                <Card.Text>Price: {productData.price}$</Card.Text>
               </Card.Body>
-              <Button
-                variant="success"
-                className="m-1"
-                onClick={handleAddToCart}
-              >
-                Add to cart
-              </Button>
             </Card>
-          </Col>
-        </Row>
+          </Modal.Body>
 
-        <div>
-          <Modal
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>The product has been added to the cart</Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body>
-              <Card>
-                <Card.Img
-                  variant="top"
-                  src={'../../../images/' + productData.image}
-                />
-                <Card.Body>
-                  <Card.Title>{productData.name}</Card.Title>
-                  <Card.Text>{productData.description}</Card.Text>
-                  <Card.Text>Price: {productData.price}$</Card.Text>
-                </Card.Body>
-              </Card>
-            </Modal.Body>
-
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Continue shopping
-              </Button>
-              <Button variant="success" as={Link} to={`/cart`}>
-                Go to cart
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Continue shopping
+            </Button>
+            <Button variant="success" as={Link} to={`/cart`}>
+              Go to cart
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </main>
   );

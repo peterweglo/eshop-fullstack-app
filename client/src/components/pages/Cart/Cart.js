@@ -72,7 +72,7 @@ const Cart = () => {
                   <div className={styles.quantityControls}>
                     <span>Quantity:</span>
                     <Button
-                      variant="primary"
+                      variant="secondary"
                       onClick={() =>
                         handleChangeQuantity(product.id, product.quantity - 1)
                       }
@@ -91,7 +91,7 @@ const Cart = () => {
                       }
                     />
                     <Button
-                      variant="primary"
+                      variant="secondary"
                       onClick={() =>
                         handleChangeQuantity(product.id, product.quantity + 1)
                       }
