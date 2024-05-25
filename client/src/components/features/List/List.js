@@ -10,10 +10,10 @@ import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useState } from 'react';
 
-const List = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const dispatch = useDispatch();
+const List = ({ onAddToCart }) => {
   const products = useSelector(getAllProducts);
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,7 +31,7 @@ const List = () => {
     <Row>
       {products.map((product) => (
         <Col key={product.id} xs="12" md="6" lg="4">
-          <SingleProduct {...product} />
+          <SingleProduct {...product} onAddToCart={onAddToCart} />
         </Col>
       ))}
     </Row>

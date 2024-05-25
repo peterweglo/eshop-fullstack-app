@@ -18,6 +18,9 @@ const SingleProduct = (props) => {
         quantity: 1,
       }),
     );
+    if (props.onAddToCart) {
+      props.onAddToCart();
+    }
   };
 
   return (
@@ -37,7 +40,11 @@ const SingleProduct = (props) => {
         >
           Read more
         </Button>
-        <Button variant="success" onClick={handleAddToCart} className="mx-3">
+        <Button
+          variant="success"
+          onClick={() => handleAddToCart()}
+          className="mx-3"
+        >
           Add to cart
         </Button>
       </Card.Body>

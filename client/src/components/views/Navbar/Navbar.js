@@ -17,6 +17,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../../images/logo2.svg';
+import { useRef, useEffect } from 'react';
 
 const NavBar = () => {
   const totalQuantity = useSelector(getTotalQuantity);
@@ -24,6 +25,20 @@ const NavBar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        setIsCartOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [cartRef]);
 
   const toggleCart = (e) => {
     e.preventDefault();
@@ -95,7 +110,7 @@ const NavBar = () => {
               </div>
             </Nav.Link>
             {isCartOpen && (
-              <div className={styles.cartList}>
+              <div className={styles.cartList} ref={cartRef}>
                 {cartProducts.map((product) => (
                   <div key={product.id} className={styles.cartItem}>
                     <div className={styles.productDetails}>
