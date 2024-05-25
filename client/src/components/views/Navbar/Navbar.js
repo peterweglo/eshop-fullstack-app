@@ -71,96 +71,85 @@ const NavBar = () => {
       expand="lg"
       className="mt-4 mb-4 rounded"
     >
-      <Container>
-        <Navbar.Brand href="/">
-          <Logo style={{ height: '150px' }} />
+      <Container className={styles.container}>
+        <Navbar.Brand href="/" className={styles.navBrand}>
+          <Logo className={styles.logoSvg} />
           <span className={styles.logo}>ShoeShop</span>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link as={NavLink} to="/" className={styles.homeIcon}>
-              Home
-            </Nav.Link>
 
-            <div className={`col text-right ${styles.cart}`}>
-              <Nav.Link className={styles.cartBox} as={NavLink} to="/cart">
-                <div className={styles.cartIcon} onClick={toggleCart}>
-                  <FontAwesomeIcon
-                    className={styles.icon}
-                    icon={faShoppingBasket}
-                  />
-                </div>
-                <div className={styles.cartCounter}>({totalQuantity})</div>
-              </Nav.Link>
-              {isCartOpen && (
-                <div className={styles.cartList}>
-                  {cartProducts.map((product) => (
-                    <div key={product.id} className={styles.cartItem}>
-                      <div className={styles.productDetails}>
-                        <span className={styles.productName}>
-                          {product.name}
-                        </span>
-                        <span className={styles.productPrice}>
-                          {' '}
-                          - Price: ${product.price * product.quantity}
-                        </span>
-                      </div>
-                      <div className={styles.quantityControls}>
-                        <Button
-                          variant="secondary"
-                          onClick={() =>
-                            handleQuantityChange(
-                              product.id,
-                              product.quantity - 1,
-                            )
-                          }
-                        >
-                          -
-                        </Button>
-                        <input
-                          type="number"
-                          className={styles.quantityInput}
-                          value={product.quantity}
-                          onChange={(e) =>
-                            handleQuantityChange(product.id, e.target.value)
-                          }
-                        />
-                        <Button
-                          variant="secondary"
-                          onClick={() =>
-                            handleQuantityChange(
-                              product.id,
-                              product.quantity + 1,
-                            )
-                          }
-                        >
-                          +
-                        </Button>
-                      </div>
-                      <FontAwesomeIcon
-                        icon={faTrash}
-                        className={styles.removeIcon}
-                        onClick={() => handleRemoveProduct(product.id)}
+        <Nav className={`ms-auto ${styles.navRight}`}>
+          <Nav.Link as={NavLink} to="/" className={styles.homeIcon}>
+            Home
+          </Nav.Link>
+
+          <div className={`col text-right ${styles.cart}`}>
+            <Nav.Link className={styles.cartBox} as={NavLink} to="/cart">
+              <div className={styles.cartIcon} onClick={toggleCart}>
+                <FontAwesomeIcon
+                  className={styles.icon}
+                  icon={faShoppingBasket}
+                />
+              </div>
+              <div className={styles.cartCounter} onClick={toggleCart}>
+                ({totalQuantity})
+              </div>
+            </Nav.Link>
+            {isCartOpen && (
+              <div className={styles.cartList}>
+                {cartProducts.map((product) => (
+                  <div key={product.id} className={styles.cartItem}>
+                    <div className={styles.productDetails}>
+                      <span className={styles.productName}>{product.name}</span>
+                      <span className={styles.productPrice}>
+                        {' '}
+                        - Price: ${product.price * product.quantity}
+                      </span>
+                    </div>
+                    <div className={styles.quantityControls}>
+                      <Button
+                        variant="secondary"
+                        onClick={() =>
+                          handleQuantityChange(product.id, product.quantity - 1)
+                        }
+                      >
+                        -
+                      </Button>
+                      <input
+                        type="number"
+                        className={styles.quantityInput}
+                        value={product.quantity}
+                        onChange={(e) =>
+                          handleQuantityChange(product.id, e.target.value)
+                        }
                       />
+                      <Button
+                        variant="secondary"
+                        onClick={() =>
+                          handleQuantityChange(product.id, product.quantity + 1)
+                        }
+                      >
+                        +
+                      </Button>
                     </div>
-                  ))}
-                  <div className={styles.cartSummary}>
-                    <div>
-                      {' '}
-                      Products: {(totalCost - deliveryCost).toFixed(2)} $
-                    </div>
-                    <div>Delivery price: $5.00</div>
-                    <div>Total price: ${totalPrice + 5}</div>
-                    <Button variant="success" onClick={handleGotoCart}>
-                      Go to cart
-                    </Button>
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      className={styles.removeIcon}
+                      onClick={() => handleRemoveProduct(product.id)}
+                    />
                   </div>
+                ))}
+                <div className={styles.cartSummary}>
+                  <div>Products: {(totalCost - deliveryCost).toFixed(2)} $</div>
+                  <div>Delivery price: $5.00</div>
+                  <div>Total price: ${totalPrice + 5}</div>
+                  <Button variant="success" onClick={handleGotoCart}>
+                    Go to cart
+                  </Button>
                 </div>
-              )}
-            </div>
-          </Nav>
-        </Navbar.Collapse>
+              </div>
+            )}
+          </div>
+        </Nav>
       </Container>
     </Navbar>
   );

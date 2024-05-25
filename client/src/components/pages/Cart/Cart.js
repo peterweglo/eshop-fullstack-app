@@ -66,41 +66,47 @@ const Cart = () => {
                 style={{ width: '50%', objectFit: 'cover' }}
               />
               <Card.Body className="flex-grow-1">
-                <Card.Title>{product.name}</Card.Title>
+                <Card.Title className={styles.cardTitle}>
+                  {product.name}
+                </Card.Title>
                 <Card.Text>Price: {product.price.toFixed(2)} $</Card.Text>
                 <Card.Text>
                   <div className={styles.quantityControls}>
                     <span>Quantity:</span>
-                    <Button
-                      variant="secondary"
-                      onClick={() =>
-                        handleChangeQuantity(product.id, product.quantity - 1)
-                      }
-                    >
-                      -
-                    </Button>
-                    <input
-                      type="number"
-                      value={product.quantity}
-                      min="1"
-                      onChange={(e) =>
-                        handleChangeQuantity(
-                          product.id,
-                          parseInt(e.target.value),
-                        )
-                      }
-                    />
-                    <Button
-                      variant="secondary"
-                      onClick={() =>
-                        handleChangeQuantity(product.id, product.quantity + 1)
-                      }
-                    >
-                      +
-                    </Button>
+
+                    <div>
+                      <Button
+                        variant="secondary"
+                        onClick={() =>
+                          handleChangeQuantity(product.id, product.quantity - 1)
+                        }
+                      >
+                        -
+                      </Button>
+                      <input
+                        type="number"
+                        value={product.quantity}
+                        min="1"
+                        onChange={(e) =>
+                          handleChangeQuantity(
+                            product.id,
+                            parseInt(e.target.value),
+                          )
+                        }
+                      />
+                      <Button
+                        variant="secondary"
+                        onClick={() =>
+                          handleChangeQuantity(product.id, product.quantity + 1)
+                        }
+                      >
+                        +
+                      </Button>
+                    </div>
                   </div>
                 </Card.Text>
                 <Button
+                  className={styles.removeButton}
                   variant="danger"
                   onClick={() => handleRemove(product.id)}
                 >
@@ -113,7 +119,7 @@ const Cart = () => {
         <Col md={4}>
           <Card>
             <Card.Header>Total Cost</Card.Header>
-            <ListGroup variant="flush">
+            <ListGroup variant="flush" className={styles.cartSummary}>
               <ListGroup.Item>
                 Products: {(totalCost - deliveryCost).toFixed(2)} $
               </ListGroup.Item>
