@@ -1,0 +1,40 @@
+.quantityControls {
+  display: flex;
+  align-items: center;
+}
+
+.quantityControls button {
+  border: none;
+  background-color: #e1e1e1;
+  color: #434343;
+  padding: 5px 8px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.quantityControls button {
+  &:hover {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+}
+.quantityControls input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #e1e1e1;
+  padding: 5px;
+}
+
+span {
+  margin-right: 5px;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}

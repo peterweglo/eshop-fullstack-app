@@ -1,3 +1,4 @@
+import styles from './Cart.module.scss';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -28,8 +29,14 @@ const Cart = () => {
   };
 
   const handleChangeQuantity = (id, quantity) => {
+    quantity = parseInt(quantity, 10) || 0;
+
+    if (quantity < 1) {
+      quantity = 1;
+    }
     dispatch(updateQuantity(id, quantity));
   };
+
   const handleCheckout = () => {
     if (cartProducts.length === 0) {
       alert('Your cart is empty. Please add products to proceed to checkout.');
@@ -62,16 +69,36 @@ const Cart = () => {
                 <Card.Title>{product.name}</Card.Title>
                 <Card.Text>Price: {product.price.toFixed(2)} $</Card.Text>
                 <Card.Text>
-                  Quantity:
-                  <input
-                    type="number"
-                    value={product.quantity}
-                    min="1"
-                    onChange={(e) =>
-                      handleChangeQuantity(product.id, parseInt(e.target.value))
-                    }
-                    style={{ marginLeft: '10px', width: '60px' }}
-                  />
+                  <div className={styles.quantityControls}>
+                    <span>Quantity:</span>
+                    <Button
+                      variant="primary"
+                      onClick={() =>
+                        handleChangeQuantity(product.id, product.quantity - 1)
+                      }
+                    >
+                      -
+                    </Button>
+                    <input
+                      type="number"
+                      value={product.quantity}
+                      min="1"
+                      onChange={(e) =>
+                        handleChangeQuantity(
+                          product.id,
+                          parseInt(e.target.value),
+                        )
+                      }
+                    />
+                    <Button
+                      variant="primary"
+                      onClick={() =>
+                        handleChangeQuantity(product.id, product.quantity + 1)
+                      }
+                    >
+                      +
+                    </Button>
+                  </div>
                 </Card.Text>
                 <Button
                   variant="danger"
