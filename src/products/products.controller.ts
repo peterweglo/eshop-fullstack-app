@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Delete,
-  Post,
-  Body,
-  Put,
-} from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDTO } from './dtos/create-product.dto';
 import { ParseUUIDPipe } from '@nestjs/common';

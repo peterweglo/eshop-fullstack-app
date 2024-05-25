@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   Param,
-  Delete,
   Post,
   Body,
   NotFoundException,
@@ -26,14 +25,6 @@ export class OrdersController {
     const ord = await this.ordersService.getById(id);
     if (!ord) throw new NotFoundException('Order not found');
     return ord;
-  }
-
-  @Delete('/:id')
-  async deleteById(@Param('id', new ParseUUIDPipe()) id: string) {
-    if (!(await this.ordersService.getById(id)))
-      throw new NotFoundException('Order not found');
-    await this.ordersService.deleteById(id);
-    return { success: true };
   }
 
   @Post('/')
