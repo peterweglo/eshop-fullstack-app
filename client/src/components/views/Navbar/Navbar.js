@@ -42,9 +42,7 @@ const NavBar = () => {
 
   const toggleCart = (e) => {
     e.preventDefault();
-
     setIsCartOpen(!isCartOpen);
-    e.stopPropagation();
   };
 
   const totalPrice = cartProducts.reduce(
@@ -100,8 +98,13 @@ const NavBar = () => {
           </Nav.Link>
 
           <div className={`col text-right ${styles.cart}`} ref={cartRef}>
-            <Nav.Link className={styles.cartBox} as={NavLink} to="/cart">
-              <div className={styles.cartIcon} onClick={toggleCart}>
+            <Nav.Link
+              className={styles.cartBox}
+              as={NavLink}
+              to="/cart"
+              onClick={toggleCart}
+            >
+              <div className={styles.cartIcon}>
                 <FontAwesomeIcon
                   className={styles.icon}
                   icon={faShoppingBasket}
