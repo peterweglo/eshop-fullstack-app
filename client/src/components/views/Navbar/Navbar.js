@@ -42,7 +42,9 @@ const NavBar = () => {
 
   const toggleCart = (e) => {
     e.preventDefault();
+
     setIsCartOpen(!isCartOpen);
+    e.stopPropagation();
   };
 
   const totalPrice = cartProducts.reduce(
@@ -97,7 +99,7 @@ const NavBar = () => {
             Home
           </Nav.Link>
 
-          <div className={`col text-right ${styles.cart}`}>
+          <div className={`col text-right ${styles.cart}`} ref={cartRef}>
             <Nav.Link className={styles.cartBox} as={NavLink} to="/cart">
               <div className={styles.cartIcon} onClick={toggleCart}>
                 <FontAwesomeIcon
@@ -110,13 +112,12 @@ const NavBar = () => {
               </div>
             </Nav.Link>
             {isCartOpen && (
-              <div className={styles.cartList} ref={cartRef}>
+              <div className={styles.cartList}>
                 {cartProducts.map((product) => (
                   <div key={product.id} className={styles.cartItem}>
                     <div className={styles.productDetails}>
                       <span className={styles.productName}>{product.name}</span>
                       <span className={styles.productPrice}>
-                        {' '}
                         - Price: ${product.price * product.quantity}
                       </span>
                     </div>
